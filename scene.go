@@ -2,11 +2,13 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"math/rand"
 	"sync"
 
 	"github.com/veandco/go-sdl2/sdl"
 	img "github.com/veandco/go-sdl2/sdl_image"
+	ttf "github.com/veandco/go-sdl2/sdl_ttf"
 )
 
 const (
@@ -23,12 +25,19 @@ type scene struct {
 	bgx      int32
 	bird     bird
 	pipes    pipes
+	font     *ttf.Font
 }
 
 // NewScene creates new scene
 func NewScene(r *sdl.Renderer) (*scene, error) {
 	s := &scene{renderer: r}
 	var err error
+
+	s.font, err = ttf.OpenFont("resources/font.ttf", 32)
+
+	if err != nil {
+		return s, fmt.Errorf("Error while opening font: %v", err)
+	}
 
 	s.bg, err = img.LoadTexture(s.renderer, "resources/bg.png")
 
@@ -134,11 +143,29 @@ func (s *scene) update() {
 func (s *scene) draw() {
 	s.renderer.Clear()
 	s.drawBg()
-
 	s.bird.draw(s.renderer)
 	s.pipes.draw(s.renderer)
+	s.drawScore()
 
 	s.renderer.Present()
+}
+
+func (s *scene) drawScore() {
+	scoreText := fmt.Sprintf("%d", s.score()/2)
+	surf, err := s.font.RenderUTF8_Solid(scoreText, sdl.Color{R: 255, G: 255, B: 255, A: 255})
+
+	if err != nil {
+		log.Fatalf("Error while rendering score: %v", err)
+	}
+
+	texture, err := s.renderer.CreateTextureFromSurface(surf)
+	defer texture.Destroy()
+
+	if err != nil {
+		log.Fatalf("Could not create texture from surface: %v", err)
+	}
+
+	s.renderer.Copy(texture, nil, &sdl.Rect{X: 15, Y: 15, W: 30, H: 60})
 }
 
 func (s *scene) drawBg() {
@@ -151,8 +178,8 @@ func (s *scene) drawBg() {
 	s.renderer.Copy(s.bg, &srcRect, &destRect2)
 }
 
-func (s *scene) score() {
-	fmt.Printf("Score was: %d\n", s.pipes.score())
+func (s *scene) score() int {
+	return s.pipes.score()
 }
 
 // ================== BIRD ================== //

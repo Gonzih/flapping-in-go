@@ -1,5 +1,5 @@
-hash: 155b0b46c8b1d1936cf99e5fd43169d05c33697e2fefca5da79bc0be7a6657c8
-updated: 2017-02-03T14:34:58.709727084+01:00
+hash: 92401534d6a49284fb77d75a6b8b5b956e965fd80986b4485004975812ce3ad1
+updated: 2017-02-03T21:37:08.786051757+01:00
 imports:
 - name: camlistore.org
   version: 7b78c50007780643798adf3fee4c84f3a10154c9
@@ -20,6 +20,7 @@ imports:
   subpackages:
   - sdl
   - sdl_image
+  - sdl_ttf
 - name: github.com/xordataexchange/crypt
   version: 0d6dc8c093c1c191f00effdfc3b2f858973f0271
   subpackages:

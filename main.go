@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/veandco/go-sdl2/sdl"
+	"github.com/veandco/go-sdl2/sdl_ttf"
 )
 
 const (
@@ -16,7 +17,13 @@ func run() error {
 	err := sdl.Init(sdl.INIT_EVERYTHING)
 
 	if err != nil {
-		return fmt.Errorf("Error while initing sdl: %v", err)
+		return fmt.Errorf("Error while initializing sdl: %v", err)
+	}
+
+	err = ttf.Init()
+
+	if err != nil {
+		return fmt.Errorf("Error while initializing ttf: %v", err)
 	}
 
 	defer sdl.Quit()
