@@ -72,13 +72,13 @@ func NewScene(r *sdl.Renderer) (*scene, error) {
 func (s *scene) resetPipes() {
 	s.pipes.pipes = nil
 	var w int32 = 52
-	gapW := w * 4
+	gapW := w * 5
 
 	for i := 0; i < numberOfPipes; i++ {
 		limit := int32(windowHeight / 2)
 		bottomPipeHeight := rand.Int31n(limit)
 		topPipeHeight := rand.Int31n(limit)
-		pos := gapW*int32(i+2) + rand.Int31n(gapW)
+		pos := gapW*int32(i+2) + rand.Int31n(w*4) + w/2
 
 		if rand.Intn(10) > 4 {
 			pos += w
