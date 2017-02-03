@@ -157,8 +157,10 @@ func (s *scene) draw() {
 }
 
 func (s *scene) drawScore() {
-	scoreText := fmt.Sprintf("%d", s.score()/2)
+	score := int32(s.score() / 2)
+	scoreText := fmt.Sprintf("%d", score)
 	surf, err := s.font.RenderUTF8_Solid(scoreText, sdl.Color{R: 255, G: 255, B: 255, A: 255})
+	width := 30 + 30*score/10
 
 	if err != nil {
 		log.Fatalf("Error while rendering score: %v", err)
@@ -171,7 +173,7 @@ func (s *scene) drawScore() {
 		log.Fatalf("Could not create texture from surface: %v", err)
 	}
 
-	s.renderer.Copy(texture, nil, &sdl.Rect{X: 15, Y: 15, W: 30, H: 60})
+	s.renderer.Copy(texture, nil, &sdl.Rect{X: 15, Y: 15, W: width, H: 60})
 }
 
 func (s *scene) drawBg() {
