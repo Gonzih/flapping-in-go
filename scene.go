@@ -286,7 +286,6 @@ func (p *pipe) draw(r *sdl.Renderer, tex *sdl.Texture) {
 
 	flip := sdl.FLIP_NONE
 	if !p.up {
-		rect.H = p.h
 		rect.Y = 0
 		flip = sdl.FLIP_VERTICAL
 	}
