@@ -9,6 +9,10 @@ import (
 	img "github.com/veandco/go-sdl2/sdl_image"
 )
 
+const (
+	numberOfPipes = 20
+)
+
 type scene struct {
 	renderer *sdl.Renderer
 	bg       *sdl.Texture
@@ -47,7 +51,14 @@ func NewScene(r *sdl.Renderer) (*scene, error) {
 		return s, fmt.Errorf("Error while loading pipe texture %v", err)
 	}
 
-	for i := 0; i < 10; i++ {
+	s.resetPipes()
+	return s, nil
+}
+
+func (s *scene) resetPipes() {
+	s.pipes.pipes = nil
+
+	for i := 0; i < numberOfPipes; i++ {
 		s.pipes.pipes = append(s.pipes.pipes, &pipe{
 			pos: windowWidth/2 + int32(rand.Intn(2*windowWidth)),
 			w:   52,
@@ -56,13 +67,13 @@ func NewScene(r *sdl.Renderer) (*scene, error) {
 		})
 	}
 
-	return s, nil
 }
 
 func (s *scene) restart() {
 	s.bird.dead = false
 	s.bird.x = 0
 	s.bird.y = windowHeight / 2
+	s.resetPipes()
 }
 
 func (s *scene) run(fps uint32) {
