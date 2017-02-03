@@ -12,7 +12,10 @@ import (
 const (
 	numberOfPipes = 50
 	pipesSpeed    = 10
+	birdInitX     = 20
 )
+
+// ================== SCENE ================== //
 
 type scene struct {
 	renderer *sdl.Renderer
@@ -32,7 +35,7 @@ func NewScene(r *sdl.Renderer) (*scene, error) {
 		return s, fmt.Errorf("Error while loading bg: %v", err)
 	}
 
-	s.bird = bird{x: 50, y: windowHeight / 2, w: 50, h: 50, gravity: 5}
+	s.bird = bird{x: birdInitX, y: windowHeight / 2, w: 50, h: 50, gravity: 5}
 
 	for i := 1; i <= 4; i++ {
 		t, err := img.LoadTexture(s.renderer, fmt.Sprintf("resources/bird/frame-%d.png", i))
@@ -71,8 +74,9 @@ func (s *scene) resetPipes() {
 }
 
 func (s *scene) restart() {
+	s.score()
 	s.bird.dead = false
-	s.bird.x = 0
+	s.bird.x = birdInitX
 	s.bird.y = windowHeight / 2
 	s.resetPipes()
 	s.draw()
@@ -109,6 +113,12 @@ func (s *scene) draw() {
 
 	s.renderer.Present()
 }
+
+func (s *scene) score() {
+	fmt.Printf("Score was: %d\n", s.pipes.score())
+}
+
+// ================== BIRD ================== //
 
 type bird struct {
 	x, y, w, h     int32
@@ -148,6 +158,8 @@ func (b *bird) jump() {
 	b.speed = -10
 }
 
+// ================== PIPES ================== //
+
 type pipes struct {
 	pipes []*pipe
 	tex   *sdl.Texture
@@ -175,6 +187,20 @@ func (pp *pipes) hits(b *bird) bool {
 
 	return false
 }
+
+func (pp *pipes) score() int {
+	score := 0
+
+	for _, p := range pp.pipes {
+		if p.pos < birdInitX {
+			score++
+		}
+	}
+
+	return score
+}
+
+// ================== PIPE ================== //
 
 type pipe struct {
 	w, h, pos int32
