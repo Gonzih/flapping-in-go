@@ -10,7 +10,8 @@ import (
 )
 
 const (
-	numberOfPipes = 20
+	numberOfPipes = 50
+	pipesSpeed    = 10
 )
 
 type scene struct {
@@ -31,7 +32,7 @@ func NewScene(r *sdl.Renderer) (*scene, error) {
 		return s, fmt.Errorf("Error while loading bg: %v", err)
 	}
 
-	s.bird = bird{x: 50, y: windowHeight / 2, w: 50, h: 50, gravity: 1}
+	s.bird = bird{x: 50, y: windowHeight / 2, w: 50, h: 50, gravity: 5}
 
 	for i := 1; i <= 4; i++ {
 		t, err := img.LoadTexture(s.renderer, fmt.Sprintf("resources/bird/frame-%d.png", i))
@@ -60,10 +61,10 @@ func (s *scene) resetPipes() {
 
 	for i := 0; i < numberOfPipes; i++ {
 		s.pipes.pipes = append(s.pipes.pipes, &pipe{
-			pos: windowWidth/2 + int32(rand.Intn(2*windowWidth)),
+			pos: windowWidth/2 + int32(rand.Intn(10*windowWidth)),
 			w:   52,
 			h:   int32(rand.Intn(windowHeight / 2)),
-			up:  rand.Intn(10) > 4,
+			up:  rand.Intn(10) > 5,
 		})
 	}
 
@@ -74,6 +75,8 @@ func (s *scene) restart() {
 	s.bird.x = 0
 	s.bird.y = windowHeight / 2
 	s.resetPipes()
+	s.draw()
+	sdl.Delay(500)
 }
 
 func (s *scene) run(fps uint32) {
@@ -179,7 +182,7 @@ type pipe struct {
 }
 
 func (p *pipe) update() {
-	p.pos--
+	p.pos -= pipesSpeed
 }
 
 func (p *pipe) draw(r *sdl.Renderer, tex *sdl.Texture) {
