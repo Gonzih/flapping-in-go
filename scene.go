@@ -155,7 +155,7 @@ func (b *bird) draw(r *sdl.Renderer) {
 func (b *bird) jump() {
 	b.mu.Lock()
 	defer b.mu.Unlock()
-	b.speed = -10
+	b.speed = -20
 }
 
 // ================== PIPES ================== //

@@ -41,7 +41,7 @@ loop:
 		switch sdl.WaitEvent().(type) {
 		case *sdl.QuitEvent:
 			break loop
-		case *sdl.MouseButtonEvent:
+		case *sdl.MouseButtonEvent, *sdl.KeyUpEvent:
 			scene.bird.jump()
 		}
 	}
