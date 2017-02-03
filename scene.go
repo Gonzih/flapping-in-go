@@ -20,6 +20,7 @@ const (
 type scene struct {
 	renderer *sdl.Renderer
 	bg       *sdl.Texture
+	bgx      int32
 	bird     bird
 	pipes    pipes
 }
@@ -78,6 +79,7 @@ func (s *scene) restart() {
 	s.bird.dead = false
 	s.bird.x = birdInitX
 	s.bird.y = windowHeight / 2
+	s.bgx = 0
 	s.resetPipes()
 	s.draw()
 	sdl.Delay(500)
@@ -106,7 +108,7 @@ func (s *scene) update() {
 
 func (s *scene) draw() {
 	s.renderer.Clear()
-	s.renderer.Copy(s.bg, &sdl.Rect{X: 0, Y: 0, W: windowWidth, H: windowHeight}, nil)
+	s.renderer.Copy(s.bg, &sdl.Rect{X: s.bgx, Y: 0, W: windowWidth, H: windowHeight}, nil)
 
 	s.bird.draw(s.renderer)
 	s.pipes.draw(s.renderer)
