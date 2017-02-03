@@ -26,7 +26,7 @@ func NewScene(r *sdl.Renderer) (*scene, error) {
 		return s, fmt.Errorf("Error while loading bg: %v", err)
 	}
 
-	s.bird = bird{x: 20, y: 300, w: 50, h: 50, gravity: 1}
+	s.bird = bird{x: 20, y: windowHeight / 2, w: 50, h: 50, gravity: 1}
 
 	for i := 1; i <= 4; i++ {
 		t, err := img.LoadTexture(s.renderer, fmt.Sprintf("resources/bird/frame-%d.png", i))
@@ -41,6 +41,12 @@ func NewScene(r *sdl.Renderer) (*scene, error) {
 	return s, nil
 }
 
+func (s *scene) restart() {
+	s.bird.dead = false
+	s.bird.x = 0
+	s.bird.y = windowHeight / 2
+}
+
 func (s *scene) run(fps uint32) {
 	for {
 		s.update()
@@ -51,6 +57,10 @@ func (s *scene) run(fps uint32) {
 
 func (s *scene) update() {
 	s.bird.update()
+
+	if s.bird.dead {
+		s.restart()
+	}
 }
 
 func (s *scene) draw() {
@@ -69,6 +79,7 @@ type bird struct {
 	frames         []*sdl.Texture
 	frame          int
 	mu             sync.Mutex
+	dead           bool
 }
 
 func (b *bird) update() {
@@ -86,6 +97,10 @@ func (b *bird) update() {
 	defer b.mu.Unlock()
 	b.y += b.speed
 	b.speed += b.gravity
+
+	if b.y > windowHeight || b.y < 0 {
+		b.dead = true
+	}
 }
 
 func (b *bird) draw(r *sdl.Renderer) {
