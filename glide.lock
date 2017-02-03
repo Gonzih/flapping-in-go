@@ -1,65 +1,10 @@
-hash: 92401534d6a49284fb77d75a6b8b5b956e965fd80986b4485004975812ce3ad1
-updated: 2017-02-03T21:37:08.786051757+01:00
+hash: df78f788f55a78aef72ed418b0ee65e725a616834500a5bcacbb2618169bed46
+updated: 2017-02-04T00:05:08.738438857+01:00
 imports:
-- name: camlistore.org
-  version: 7b78c50007780643798adf3fee4c84f3a10154c9
-  subpackages:
-  - pkg/googlestorage
-- name: github.com/d2r2/go-dht
-  version: d74e22ccfe2297ded0accdaf0ba78b7c70cf7fbb
-- name: github.com/garyburd/go-oauth
-  version: 18d3217f4d38f106335b3a2b2a08ce1c9299d009
-  subpackages:
-  - oauth
-- name: github.com/inconshreveable/mousetrap
-  version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
-- name: github.com/julienschmidt/httprouter
-  version: 8c199fb6259ffc1af525cc3ad52ee60ba8359669
 - name: github.com/veandco/go-sdl2
   version: 9eb0c07944b7d311bde2fd3d9cb2e767a938a0c9
   subpackages:
   - sdl
   - sdl_image
   - sdl_ttf
-- name: github.com/xordataexchange/crypt
-  version: 0d6dc8c093c1c191f00effdfc3b2f858973f0271
-  subpackages:
-  - config
-- name: github.com/yosssi/ace-proxy
-  version: ecd9b785e6023e00b1a451cdf584a30d4eff14c0
-- name: github.com/yosssi/gohtml
-  version: ccf383eafddde21dfe37c6191343813822b30e6b
-- name: go4.org
-  version: 7ce08ca145dbe0e66a127c447b80ee7914f3e4f9
-  subpackages:
-  - syncutil/singleflight
-- name: golang.org/x/oauth2
-  version: 314dd2c0bf3ebd592ec0d20847d27e79d0dbe8dd
-  subpackages:
-  - google
-- name: google.golang.org/api
-  version: c55f685368bb1cdfed2c20283e2878a83b929730
-  subpackages:
-  - compute/v1
-- name: google.golang.org/appengine
-  version: 150dc57a1b433e64154302bdc40b6bb8aefa313a
-  subpackages:
-  - datastore
-  - log
-  - memcache
-  - urlfetch
-  - user
-testImports:
-- name: github.com/davecgh/go-spew
-  version: 346938d642f2ec3594ed81d874461961cd0faa76
-  subpackages:
-  - spew
-- name: github.com/fortytw2/leaktest
-  version: 0db74e8cd5adacfcc982838c6e185789e4b44e14
-- name: github.com/stretchr/testify
-  version: 69483b4bd14f5845b5a1e55bca19e954e827f1d0
-  subpackages:
-  - assert
-  - require
-- name: gopkg.in/check.v1
-  version: 20d25e2804050c1cd24a7eea1e7a6447dd0e74ec
+testImports: []
