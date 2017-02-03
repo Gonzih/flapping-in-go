@@ -118,6 +118,10 @@ func (s *scene) update() {
 	s.pipes.update()
 	s.bgx = (s.bgx + 1) % 2000
 
+	if s.bgx >= windowWidth {
+		s.bgx = 0
+	}
+
 	if s.pipes.hits(&s.bird) {
 		s.bird.dead = true
 	}
@@ -129,12 +133,22 @@ func (s *scene) update() {
 
 func (s *scene) draw() {
 	s.renderer.Clear()
-	s.renderer.Copy(s.bg, &sdl.Rect{X: s.bgx, Y: 0, W: windowWidth, H: windowHeight}, nil)
+	s.drawBg()
 
 	s.bird.draw(s.renderer)
 	s.pipes.draw(s.renderer)
 
 	s.renderer.Present()
+}
+
+func (s *scene) drawBg() {
+	x1 := -s.bgx
+	x2 := windowWidth - s.bgx
+	srcRect := sdl.Rect{X: 0, Y: 0, W: windowWidth, H: windowHeight}
+	destRect1 := sdl.Rect{X: x1, Y: 0, W: windowWidth, H: windowHeight}
+	destRect2 := sdl.Rect{X: x2, Y: 0, W: windowWidth, H: windowHeight}
+	s.renderer.Copy(s.bg, &srcRect, &destRect1)
+	s.renderer.Copy(s.bg, &srcRect, &destRect2)
 }
 
 func (s *scene) score() {
