@@ -69,7 +69,6 @@ func (s *scene) resetPipes() {
 		limit := int32(windowHeight / 2)
 		bottomPipeHeight := rand.Int31n(limit)
 		topPipeHeight := rand.Int31n(limit)
-		gapH := int32(windowHeight) - bottomPipeHeight - topPipeHeight
 		pos := gapW*int32(i+2) + rand.Int31n(gapW)
 
 		if rand.Intn(10) > 4 {
