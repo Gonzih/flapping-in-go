@@ -96,6 +96,7 @@ func (s *scene) run(fps uint32) {
 func (s *scene) update() {
 	s.bird.update()
 	s.pipes.update()
+	s.bgx = (s.bgx + 1) % 2000
 
 	if s.pipes.hits(&s.bird) {
 		s.bird.dead = true
