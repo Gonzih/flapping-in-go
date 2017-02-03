@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"log"
+	"math/rand"
+	"time"
 
 	"github.com/veandco/go-sdl2/sdl"
 	"github.com/veandco/go-sdl2/sdl_ttf"
@@ -57,6 +59,8 @@ loop:
 }
 
 func main() {
+	rand.Seed(time.Now().UTC().UnixNano())
+
 	err := run()
 
 	if err != nil {
