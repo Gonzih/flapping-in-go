@@ -72,6 +72,7 @@ func NewScene(r *sdl.Renderer) (*scene, error) {
 func (s *scene) resetPipes() {
 	s.pipes.pipes = s.generatePipes()
 }
+
 func (s *scene) generatePipes() []*pipe {
 	var pipes []*pipe
 	var w int32 = 52
