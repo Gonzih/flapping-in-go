@@ -79,7 +79,7 @@ func (s *scene) generatePipes() []*pipe {
 	gapW := w * 5
 
 	for i := 0; i < numberOfPipes; i++ {
-		limit := int32(windowHeight / 2)
+		limit := int32(windowHeight/2) - 50
 		bottomPipeHeight := rand.Int31n(limit)
 		topPipeHeight := rand.Int31n(limit)
 		pos := gapW*int32(i+2) + rand.Int31n(w*4) + w/2
