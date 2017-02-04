@@ -284,15 +284,16 @@ func (p *pipe) update() {
 }
 
 func (p *pipe) draw(r *sdl.Renderer, tex *sdl.Texture) {
-	rect := &sdl.Rect{X: p.pos, Y: windowHeight - p.h, W: p.w, H: p.h}
+	dest := &sdl.Rect{X: p.pos, Y: windowHeight - p.h, W: p.w, H: p.h}
+	src := &sdl.Rect{X: 0, Y: 0, W: p.w, H: p.h}
 
 	flip := sdl.FLIP_NONE
 	if !p.up {
-		rect.Y = 0
+		dest.Y = 0
 		flip = sdl.FLIP_VERTICAL
 	}
 
-	r.CopyEx(tex, nil, rect, 0, nil, flip)
+	r.CopyEx(tex, src, dest, 0, nil, flip)
 }
 
 func (p *pipe) hits(b *bird) bool {
