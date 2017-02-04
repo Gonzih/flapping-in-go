@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	numberOfPipes = 50
+	numberOfPipes = 100
 	pipesSpeed    = 10
 	birdInitX     = 20
 )
@@ -160,7 +160,15 @@ func (s *scene) drawScore() {
 	score := int32(s.score() / 2)
 	scoreText := fmt.Sprintf("%d", score)
 	surf, err := s.font.RenderUTF8_Solid(scoreText, sdl.Color{R: 255, G: 255, B: 255, A: 255})
-	width := 30 + 30*score/10
+	var width int32 = 30
+
+	if score >= 10 {
+		width += 30
+	}
+
+	if score >= 100 {
+		width += 30
+	}
 
 	if err != nil {
 		log.Fatalf("Error while rendering score: %v", err)
