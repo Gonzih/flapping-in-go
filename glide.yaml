@@ -1,7 +1,0 @@
-package: flapping-in-go
-import:
-- package: github.com/veandco/go-sdl2
-  subpackages:
-  - sdl
-  - sdl_image
-  - sdl_ttf
